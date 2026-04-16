@@ -12,8 +12,8 @@ export default function RootLayout() {
   const router = useRouter();
   const segments = useSegments();
   const [session, setSession] = useState<any | null | undefined>(undefined);
-  const [role, setRole] = useState<'client' | 'provider' | null>(null);
-  
+  const [role, setRole] = useState<'client' | null>(null);
+
   // Initialize Push Notifications
   usePushNotifications();
 
@@ -54,13 +54,13 @@ export default function RootLayout() {
         return;
       }
 
-      if (!profile || profile.status === 'blocked') {
+      if (!profile || profile.status === 'blocked' || profile.role !== 'client') {
         await supabase.auth.signOut();
         setRole(null);
         return;
       }
 
-      setRole(profile.role === 'provider' ? 'provider' : 'client');
+      setRole('client');
     })();
 
     return () => {
@@ -73,14 +73,10 @@ export default function RootLayout() {
 
     const root = segments[0];
     const inAuth = root === 'auth';
-    const inClient = root === '(client)';
-    const inProvider = root === '(provider)';
+    const inTabs = root === '(tabs)';
     const inWelcome = root === undefined;
 
     if (!session) {
-      if (inProvider) {
-        router.replace('/');
-      }
       // Se estiver na home do cliente ou em rotas de cliente, permitimos continuar sem sessão
       return;
     }
@@ -88,17 +84,8 @@ export default function RootLayout() {
     if (!role) return;
 
     if (inAuth || inWelcome) {
-      router.replace(role === 'provider' ? '/(provider)/home' : '/(client)/home');
+      router.replace('/(tabs)/home');
       return;
-    }
-
-    if (role === 'provider' && inClient) {
-      router.replace('/(provider)/home');
-      return;
-    }
-
-    if (role === 'client' && inProvider) {
-      router.replace('/(client)/home');
     }
   }, [session, role, segments]);
 

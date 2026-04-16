@@ -9,7 +9,7 @@ export default function Register() {
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [secureTextEntry, setSecureTextEntry] = useState(true);
-  
+
   // Form State
   const [fullName, setFullName] = useState('');
   const [email, setEmail] = useState('');
@@ -43,7 +43,7 @@ export default function Register() {
       if (error) throw error;
 
       if (data.session) {
-        router.replace('/(client)/home');
+        router.replace('/(tabs)/home');
       } else {
         Alert.alert('Sucesso', 'Verifique seu email para confirmar o cadastro.');
       }
@@ -60,8 +60,8 @@ export default function Register() {
   }
 
   return (
-    <KeyboardAvoidingView 
-      style={styles.container} 
+    <KeyboardAvoidingView
+      style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
       {/* Top App Bar */}
@@ -69,22 +69,22 @@ export default function Register() {
         <TouchableOpacity style={styles.backButton} onPress={() => router.back()}>
           <MaterialIcons name="arrow-back-ios" size={20} color="#0f172a" />
         </TouchableOpacity>
-        <Text style={styles.headerTitle}>Create Account</Text>
-        <View style={{ width: 40 }} /> 
+        <Text style={styles.headerTitle}>Criar Conta</Text>
+        <View style={{ width: 40 }} />
       </View>
 
       <ScrollView contentContainerStyle={styles.scrollContent}>
         {/* Personal Information */}
         <View style={styles.section}>
-          <Text style={styles.sectionTitle}>PERSONAL INFORMATION</Text>
-          
+          <Text style={styles.sectionTitle}>INFORMAÇÕES PESSOAIS</Text>
+
           <View style={styles.inputGroup}>
-            <Text style={styles.label}>Full Name</Text>
+            <Text style={styles.label}>Nome Completo</Text>
             <View style={styles.inputWrapper}>
               <MaterialIcons name="person" size={20} color="#94a3b8" style={styles.inputIcon} />
-              <TextInput 
+              <TextInput
                 style={styles.input}
-                placeholder="John Doe"
+                placeholder="Ex: João Silva"
                 placeholderTextColor="#94a3b8"
                 value={fullName}
                 onChangeText={setFullName}
@@ -93,12 +93,12 @@ export default function Register() {
           </View>
 
           <View style={styles.inputGroup}>
-            <Text style={styles.label}>Email Address</Text>
+            <Text style={styles.label}>Endereço de E-mail</Text>
             <View style={styles.inputWrapper}>
               <MaterialIcons name="mail" size={20} color="#94a3b8" style={styles.inputIcon} />
-              <TextInput 
+              <TextInput
                 style={styles.input}
-                placeholder="john@example.com"
+                placeholder="nome@exemplo.com"
                 placeholderTextColor="#94a3b8"
                 value={email}
                 onChangeText={setEmail}
@@ -109,12 +109,12 @@ export default function Register() {
           </View>
 
           <View style={styles.inputGroup}>
-            <Text style={styles.label}>Phone Number</Text>
+            <Text style={styles.label}>Número de Telefone</Text>
             <View style={styles.inputWrapper}>
               <MaterialIcons name="call" size={20} color="#94a3b8" style={styles.inputIcon} />
-              <TextInput 
+              <TextInput
                 style={styles.input}
-                placeholder="(555) 123-4567"
+                placeholder="(00) 00000-0000"
                 placeholderTextColor="#94a3b8"
                 value={phone}
                 onChangeText={setPhone}
@@ -124,30 +124,30 @@ export default function Register() {
           </View>
 
           <View style={styles.passwordRow}>
-             <View style={[styles.inputGroup, { flex: 1 }]}>
-                <Text style={styles.label}>Password</Text>
-                <View style={styles.inputWrapper}>
-                  <MaterialIcons name="lock" size={20} color="#94a3b8" style={styles.inputIcon} />
-                  <TextInput 
-                    style={styles.input}
-                    placeholder="••••••••"
-                    placeholderTextColor="#94a3b8"
-                    secureTextEntry={secureTextEntry}
-                    value={password}
-                    onChangeText={setPassword}
-                  />
-                  <TouchableOpacity onPress={() => setSecureTextEntry(!secureTextEntry)}>
-                    <MaterialIcons name={secureTextEntry ? "visibility-off" : "visibility"} size={20} color="#94a3b8" />
-                  </TouchableOpacity>
-                </View>
-             </View>
+            <View style={[styles.inputGroup, { flex: 1 }]}>
+              <Text style={styles.label}>Senha</Text>
+              <View style={styles.inputWrapper}>
+                <MaterialIcons name="lock" size={20} color="#94a3b8" style={styles.inputIcon} />
+                <TextInput
+                  style={styles.input}
+                  placeholder="••••••••"
+                  placeholderTextColor="#94a3b8"
+                  secureTextEntry={secureTextEntry}
+                  value={password}
+                  onChangeText={setPassword}
+                />
+                <TouchableOpacity onPress={() => setSecureTextEntry(!secureTextEntry)}>
+                  <MaterialIcons name={secureTextEntry ? "visibility-off" : "visibility"} size={20} color="#94a3b8" />
+                </TouchableOpacity>
+              </View>
+            </View>
           </View>
 
           <View style={styles.inputGroup}>
-            <Text style={styles.label}>Confirm Password</Text>
+            <Text style={styles.label}>Confirmar Senha</Text>
             <View style={styles.inputWrapper}>
               <MaterialIcons name="lock-reset" size={20} color="#94a3b8" style={styles.inputIcon} />
-              <TextInput 
+              <TextInput
                 style={styles.input}
                 placeholder="••••••••"
                 placeholderTextColor="#94a3b8"
@@ -164,11 +164,11 @@ export default function Register() {
         {/* Footer Action */}
         <View style={styles.footer}>
           <Text style={styles.termsText}>
-            By creating an account, you agree to our <Text style={styles.linkText}>Terms of Service</Text> and <Text style={styles.linkText}>Privacy Policy</Text>.
+            Ao criar uma conta, você concorda com nossos <Text style={styles.linkText}>Termos de Serviço</Text> e <Text style={styles.linkText}>Política de Privacidade</Text>.
           </Text>
-          
-          <TouchableOpacity 
-            style={styles.primaryButton} 
+
+          <TouchableOpacity
+            style={styles.primaryButton}
             onPress={handleRegister}
             disabled={loading}
           >
@@ -176,16 +176,16 @@ export default function Register() {
               <ActivityIndicator color="white" />
             ) : (
               <>
-                <Text style={styles.primaryButtonText}>Create Account</Text>
+                <Text style={styles.primaryButtonText}>Criar Conta</Text>
                 <MaterialIcons name="arrow-forward" size={20} color="white" />
               </>
             )}
           </TouchableOpacity>
 
           <View style={styles.signInContainer}>
-            <Text style={styles.signInText}>Already have an account? </Text>
+            <Text style={styles.signInText}>Já tem uma conta? </Text>
             <TouchableOpacity onPress={() => router.back()}>
-              <Text style={styles.signInLink}>Sign in</Text>
+              <Text style={styles.signInLink}>Entrar</Text>
             </TouchableOpacity>
           </View>
         </View>

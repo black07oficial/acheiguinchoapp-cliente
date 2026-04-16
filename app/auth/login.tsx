@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator, KeyboardAvoidingView, Platform, ScrollView } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, ActivityIndicator, KeyboardAvoidingView, Platform, ScrollView, Image } from 'react-native';
 import { supabase } from '../../lib/supabase';
 import { useRouter } from 'expo-router';
 import { AGENCY_CONFIG } from '../../lib/agency';
@@ -49,7 +49,7 @@ export default function Login() {
         return;
       }
 
-      router.replace('/(client)/home');
+      router.replace('/(tabs)/home');
     } catch {
       Alert.alert('Erro no Login', 'Não foi possível autenticar.');
     } finally {
@@ -58,14 +58,14 @@ export default function Login() {
   }
 
   return (
-    <KeyboardAvoidingView 
-      style={styles.container} 
+    <KeyboardAvoidingView
+      style={styles.container}
       behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
     >
       <ScrollView contentContainerStyle={styles.scrollContent}>
         {/* Top Bar */}
         <View style={styles.topBar}>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.backButton}
             onPress={() => router.back()}
           >
@@ -75,24 +75,27 @@ export default function Login() {
 
         {/* Header Section */}
         <View style={styles.header}>
-          <View style={styles.iconContainer}>
-            <MaterialIcons name="local-shipping" size={32} color="#137fec" />
+          <View style={[styles.iconContainer, { width: 80, height: 80, borderRadius: 20, overflow: 'hidden', padding: 10 }]}>
+            <Image
+              source={require('../../assets/images/guincho.png')}
+              style={{ width: '100%', height: '100%', resizeMode: 'contain' }}
+            />
           </View>
-          <Text style={styles.title}>Welcome Back</Text>
-          <Text style={styles.subtitle}>Sign in to request a tow or roadside assistance.</Text>
+          <Text style={styles.title}>Bem-vindo de Volta</Text>
+          <Text style={styles.subtitle}>Faça login para solicitar guincho ou assistência na estrada.</Text>
         </View>
 
         {/* Form Section */}
         <View style={styles.form}>
           {/* Email Input */}
           <View style={styles.inputContainer}>
-            <Text style={styles.label}>Email or Phone Number</Text>
+            <Text style={styles.label}>E-mail ou Telefone</Text>
             <View style={styles.inputWrapper}>
               <TextInput
                 style={styles.input}
                 onChangeText={setEmail}
                 value={email}
-                placeholder="Enter email or phone"
+                placeholder="Digite seu e-mail ou telefone"
                 placeholderTextColor="#94a3b8"
                 autoCapitalize="none"
               />
@@ -102,23 +105,23 @@ export default function Login() {
 
           {/* Password Input */}
           <View style={styles.inputContainer}>
-            <Text style={styles.label}>Password</Text>
+            <Text style={styles.label}>Senha</Text>
             <View style={styles.inputWrapper}>
               <TextInput
                 style={styles.input}
                 onChangeText={setPassword}
                 value={password}
                 secureTextEntry={secureTextEntry}
-                placeholder="Enter your password"
+                placeholder="Digite sua senha"
                 placeholderTextColor="#94a3b8"
                 autoCapitalize="none"
               />
               <TouchableOpacity onPress={() => setSecureTextEntry(!secureTextEntry)}>
-                <MaterialIcons 
-                  name={secureTextEntry ? "visibility" : "visibility-off"} 
-                  size={20} 
-                  color="#94a3b8" 
-                  style={styles.inputIcon} 
+                <MaterialIcons
+                  name={secureTextEntry ? "visibility" : "visibility-off"}
+                  size={20}
+                  color="#94a3b8"
+                  style={styles.inputIcon}
                 />
               </TouchableOpacity>
             </View>
@@ -127,12 +130,12 @@ export default function Login() {
           {/* Forgot Password */}
           <View style={styles.forgotPasswordContainer}>
             <TouchableOpacity>
-              <Text style={styles.forgotPasswordText}>Forgot Password?</Text>
+              <Text style={styles.forgotPasswordText}>Esqueceu a senha?</Text>
             </TouchableOpacity>
           </View>
 
           {/* Login Button */}
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.primaryButton}
             onPress={signInWithEmail}
             disabled={loading}
@@ -141,17 +144,17 @@ export default function Login() {
               <ActivityIndicator color="white" />
             ) : (
               <>
-                <Text style={styles.primaryButtonText}>Login as Client</Text>
+                <Text style={styles.primaryButtonText}>Entrar como Cliente</Text>
                 <MaterialIcons name="arrow-forward" size={20} color="white" />
               </>
             )}
           </TouchableOpacity>
 
           <View style={styles.registerContainer}>
-             <Text style={styles.registerText}>{"Don't have an account? "}</Text>
-             <TouchableOpacity onPress={() => router.push('/auth/register')}>
-                 <Text style={styles.registerLink}>Sign up</Text>
-             </TouchableOpacity>
+            <Text style={styles.registerText}>{"Não tem uma conta? "}</Text>
+            <TouchableOpacity onPress={() => router.push('/auth/register')}>
+              <Text style={styles.registerLink}>Cadastre-se</Text>
+            </TouchableOpacity>
           </View>
         </View>
 
@@ -159,7 +162,7 @@ export default function Login() {
         <View style={styles.socialSection}>
           <View style={styles.dividerContainer}>
             <View style={styles.divider} />
-            <Text style={styles.dividerText}>Or continue with</Text>
+            <Text style={styles.dividerText}>Ou continue com</Text>
             <View style={styles.divider} />
           </View>
 
@@ -167,7 +170,7 @@ export default function Login() {
             <TouchableOpacity style={styles.socialButton}>
               {/* Placeholder for Google Logo */}
               <View style={styles.socialIconPlaceholder}>
-                <Text style={{color: '#EA4335', fontWeight: 'bold'}}>G</Text>
+                <Text style={{ color: '#EA4335', fontWeight: 'bold' }}>G</Text>
               </View>
               <Text style={styles.socialButtonText}>Google</Text>
             </TouchableOpacity>
@@ -176,27 +179,6 @@ export default function Login() {
               <MaterialIcons name="stars" size={22} color="#0f172a" />
               <Text style={styles.socialButtonText}>Apple</Text>
             </TouchableOpacity>
-          </View>
-        </View>
-
-        <View style={styles.spacer} />
-
-        {/* Provider Portal Card */}
-        <View style={styles.providerCardContainer}>
-          <View style={styles.providerCard}>
-            {/* Decorative Element */}
-            <View style={styles.decorativeCircle} />
-            
-            <View style={styles.providerCardContent}>
-              <View>
-                <Text style={styles.providerTitle}>Service Provider?</Text>
-                <Text style={styles.providerSubtitle}>Access your driver dashboard here.</Text>
-              </View>
-              
-              <TouchableOpacity style={styles.providerButton} onPress={() => router.push('/auth/provider-login')}>
-                <Text style={styles.providerButtonText}>Login to Provider Portal</Text>
-              </TouchableOpacity>
-            </View>
           </View>
         </View>
 
@@ -359,58 +341,6 @@ const styles = StyleSheet.create({
   },
   spacer: {
     flex: 1,
-  },
-  providerCardContainer: {
-    marginTop: 16,
-    paddingBottom: 8,
-  },
-  providerCard: {
-    backgroundColor: '#f1f5f9',
-    borderRadius: 12,
-    padding: 20,
-    borderWidth: 1,
-    borderColor: '#e2e8f0',
-    overflow: 'hidden',
-    position: 'relative',
-  },
-  decorativeCircle: {
-    position: 'absolute',
-    right: -24,
-    top: -24,
-    width: 96,
-    height: 96,
-    borderRadius: 48,
-    backgroundColor: 'rgba(19, 127, 236, 0.1)',
-  },
-  providerCardContent: {
-    alignItems: 'center',
-    gap: 12,
-  },
-  providerTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    color: '#0f172a',
-    textAlign: 'center',
-  },
-  providerSubtitle: {
-    fontSize: 14,
-    color: '#64748b',
-    textAlign: 'center',
-  },
-  providerButton: {
-    width: '100%',
-    backgroundColor: 'white',
-    paddingVertical: 12,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: '#e2e8f0',
-    alignItems: 'center',
-    marginTop: 8,
-  },
-  providerButtonText: {
-    color: '#137fec',
-    fontWeight: 'bold',
-    fontSize: 14,
   },
   registerContainer: {
     flexDirection: 'row',

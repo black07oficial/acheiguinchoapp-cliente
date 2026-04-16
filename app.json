@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "Guincho App",
+    "name": "Achei Guincho",
     "slug": "guincho-app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -16,7 +16,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.guincho.app",
+      "bundleIdentifier": "com.acheiguincho.cliente",
       "infoPlist": {
         "UIBackgroundModes": [
           "location",
@@ -36,12 +36,10 @@
       "permissions": [
         "android.permission.ACCESS_COARSE_LOCATION",
         "android.permission.ACCESS_FINE_LOCATION",
-        "android.permission.ACCESS_BACKGROUND_LOCATION",
         "android.permission.FOREGROUND_SERVICE",
-        "android.permission.FOREGROUND_SERVICE_LOCATION",
         "android.permission.RECORD_AUDIO"
       ],
-      "package": "com.guincho.app",
+      "package": "com.acheiguincho.cliente",
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyBg6BOG9gi2y_4ldhw67e1aJlZjLCSQyPA"
@@ -71,8 +69,7 @@
       [
         "expo-location",
         {
-          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location.",
-          "isAndroidBackgroundLocationEnabled": true
+          "locationAlwaysAndWhenInUsePermission": "Allow $(PRODUCT_NAME) to use your location."
         }
       ],
       "expo-secure-store",
@@ -98,6 +95,6 @@
         }
       ]
     ],
-    "scheme": "guincho-app"
+    "scheme": "achei-guincho"
   }
 }

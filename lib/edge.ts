@@ -38,22 +38,26 @@ export async function invokeComputeQuote(params: {
   destino_lat: number;
   destino_lng: number;
 }) {
-  let accessToken = await getAccessToken();
-  
-  if (!accessToken) {
-    throw new Error('Sessão inválida. Faça login novamente.');
-  }
-
   const url = `${supabaseUrl}/functions/v1/compute-quote`;
 
-  const makeRequest = async (token: string) => {
+  // Try to get access token (for authenticated users)
+  let accessToken = await getAccessToken() || null;
+
+  const makeRequest = async (token: string | null) => {
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+      apikey: supabaseAnonKey,
+    };
+    
+    // Add Authorization header only if we have a valid token
+    // Otherwise, Supabase Edge Function will accept the request with just apikey (anon access)
+    if (token) {
+      headers.Authorization = `Bearer ${token}`;
+    }
+
     return fetch(url, {
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        apikey: supabaseAnonKey,
-        Authorization: `Bearer ${token}`,
-      },
+      headers,
       body: JSON.stringify({
         origem_lat: params.origem_lat,
         origem_lng: params.origem_lng,
@@ -65,15 +69,16 @@ export async function invokeComputeQuote(params: {
 
   let res = await makeRequest(accessToken);
 
-  // If 401, try to refresh token and retry once
-  if (res.status === 401) {
+  // If 401 and we had a token, try to refresh and retry once
+  if (res.status === 401 && accessToken) {
     console.log('Got 401 from Edge Function, attempting to refresh token...');
     const newToken = await getAccessToken(true);
     if (newToken) {
       console.log('Token refreshed, retrying request...');
       res = await makeRequest(newToken);
     } else {
-      console.log('Failed to refresh token');
+      console.log('Failed to refresh token, trying as anonymous...');
+      res = await makeRequest(null);
     }
   }
 

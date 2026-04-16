@@ -85,3 +85,11 @@ export const DARK_MAP_STYLE = [
         stylers: [{ color: '#1a1a2e' }],
     },
 ];
+
+export const GOOGLE_MAPS_MAP_ID = process.env.EXPO_PUBLIC_GOOGLE_MAPS_MAP_ID || "90f87356969d889c";
+
+export const MAP_3D_CAMERA = {
+    pitch: 45,
+    heading: 0,
+    zoom: 16
+};

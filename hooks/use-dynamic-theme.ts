@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react';
 export const THEME_COLORS = {
   primary: '#4ADEBF',
   primaryHover: '#2DD4BF',
+  error: '#EF4444',
   
   light: {
     background: '#F3F4F6',
