@@ -16,7 +16,7 @@
     ],
     "ios": {
       "supportsTablet": true,
-      "bundleIdentifier": "com.acheiguincho.cliente",
+      "bundleIdentifier": "com.devblack.acheiguincho.cliente",
       "infoPlist": {
         "UIBackgroundModes": [
           "location",
@@ -39,7 +39,7 @@
         "android.permission.FOREGROUND_SERVICE",
         "android.permission.RECORD_AUDIO"
       ],
-      "package": "com.acheiguincho.cliente",
+      "package": "com.devblack.acheiguincho.cliente",
       "config": {
         "googleMaps": {
           "apiKey": "AIzaSyBg6BOG9gi2y_4ldhw67e1aJlZjLCSQyPA"
