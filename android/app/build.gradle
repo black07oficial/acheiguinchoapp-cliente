@@ -87,9 +87,9 @@ android {
     buildToolsVersion rootProject.ext.buildToolsVersion
     compileSdk rootProject.ext.compileSdkVersion
 
-    namespace 'com.acheiguincho.cliente'
+    namespace 'com.devblack.acheiguincho.cliente'
     defaultConfig {
-        applicationId 'com.acheiguincho.cliente'
+        applicationId 'com.devblack.acheiguincho.cliente'
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
@@ -112,7 +112,9 @@ android {
         release {
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
-            signingConfig signingConfigs.debug
+            // No EAS builds, a assinatura é gerenciada pelo Expo.
+            // Se for fazer build local, você precisará configurar uma signingConfig de release.
+            // signingConfig signingConfigs.debug // REMOVIDO: Isso estava forçando a chave de debug no release.
             def enableShrinkResources = findProperty('android.enableShrinkResourcesInReleaseBuilds') ?: 'false'
             shrinkResources enableShrinkResources.toBoolean()
             minifyEnabled enableMinifyInReleaseBuilds

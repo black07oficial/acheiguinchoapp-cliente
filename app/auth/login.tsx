@@ -293,6 +293,7 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   socialSection: {
+    display: 'none',
     marginTop: 32,
     marginBottom: 24,
   },

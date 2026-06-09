@@ -1,4 +1,4 @@
-package com.acheiguincho.cliente
+package com.devblack.acheiguincho.cliente
 import expo.modules.splashscreen.SplashScreenManager
 
 import android.os.Build

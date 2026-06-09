@@ -1,4 +1,4 @@
-package com.acheiguincho.cliente
+package com.devblack.acheiguincho.cliente
 
 import android.app.Application
 import android.content.res.Configuration
